@@ -1,0 +1,10 @@
+<Solution>
+  <Folder Name="/Tests/">
+    <Project Path="Tests/Cucumber.Tests.csproj" />
+  </Folder>
+  <Project Path="Fund/SG/Fund.Infrastructure.RepoGenerator.csproj" />
+  <Project Path="Fund/src/Core/Fund.Core.csproj" />
+  <Project Path="Fund/src/Infrastructure/Fund.Infrastructure.csproj" />
+  <Project Path="Host/Host.csproj" />
+  <Project Path="IntegrationModule/IntegrationModule.csproj" />
+</Solution>
