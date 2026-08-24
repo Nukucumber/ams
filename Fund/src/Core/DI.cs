@@ -18,8 +18,9 @@ public static class DI
 
         builder
             .AddCrudServices()
+            .AddQueryServices()
             .AddSpecialServices();
-        
+
         return builder;
     }
 
@@ -37,6 +38,22 @@ public static class DI
 
         return builder;
     }
+
+    private static FundBuilder AddQueryServices(this FundBuilder builder)
+    {
+        builder.Services
+                .AddScoped<IQueryService<Asset>, CommonQueryService<Asset>>()
+                .AddScoped<IQueryService<Equipment>, CommonQueryService<Equipment>>()
+                .AddScoped<IQueryService<EquipmentType>, CommonQueryService<EquipmentType>>()
+                .AddScoped<IQueryService<Software>, CommonQueryService<Software>>()
+                .AddScoped<IQueryService<SoftwareType>, CommonQueryService<SoftwareType>>()
+                .AddScoped<IQueryService<Owner>, CommonQueryService<Owner>>()
+                .AddScoped<IQueryService<OwnerType>, CommonQueryService<OwnerType>>()
+                .AddScoped<IQueryService<Product>, CommonQueryService<Product>>();
+
+        return builder;
+    }
+
 
     public static FundBuilder AddSpecialServices(this FundBuilder builder)
     {

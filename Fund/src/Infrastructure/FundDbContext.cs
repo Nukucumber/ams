@@ -10,9 +10,7 @@ internal sealed class FundDbContext(
 {
     private DbConnection? _connection;
 
-    public DbConnection Connection => _connection
-        ?? throw new InvalidOperationException(
-            "Database connection is not open.");
+    public DbConnection Connection => GetConnection();
 
     public DbTransaction? Transaction { get; private set; }
 
@@ -25,6 +23,18 @@ internal sealed class FundDbContext(
         return command;
     }
 
+    private DbConnection GetConnection(
+    CancellationToken ct = default)
+    {
+        if (_connection is not null)
+            return _connection;
+
+        _connection = factory.Create();
+
+        _connection.Open();
+
+        return _connection;
+    }
 
     private async Task<DbConnection> GetConnectionAsync(
     CancellationToken ct = default)
