@@ -2,7 +2,9 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace Fund.Core;
 
-public class FundBuilder
+public sealed class FundBuilder
 {
     public required IServiceCollection Services { get; init; }
+
+    internal FundBuilder() { }
 }

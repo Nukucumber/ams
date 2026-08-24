@@ -19,13 +19,13 @@ public static class Program
 
         builder.Services.AddFundCore()
                         .AddInfrastructure();
-
         builder.Services.GetIntegrationBuilder()
                         .AddSqlite(cfg =>
                         {
 
-                        });
-
+                        })
+                        // .AddTgBot();
+                        ;
 
         var app = builder.Build();
         app.UseDefaultFiles();

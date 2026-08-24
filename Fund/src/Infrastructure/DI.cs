@@ -1,5 +1,6 @@
 ﻿using Fund.Core;
-using Fund.Core.Abstractions;
+using Fund.Core.Ports;
+using Fund.Infrastructure.Implements;
 using Fund.Infrastructure.SimpleSqlSourceGenerated;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -11,6 +12,8 @@ public static class DI
     {
         builder.Services.AddScoped<IUnitOfWork, UnitOfWork>()
                         .AddScoped<FundDbContext>()
+                        .AddScoped<IEventDispatcher, EventDispatcher>()
+                        .AddScoped<EventPublisherAbstract, EventPublisher>()
                         .AddSimpleSqlSourceGenerated();
 
         return builder;

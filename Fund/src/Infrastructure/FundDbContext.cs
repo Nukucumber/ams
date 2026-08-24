@@ -1,5 +1,5 @@
 using System.Data.Common;
-using Fund.Infrastructure.Abstractions;
+using Fund.Infrastructure.Ports;
 
 namespace Fund.Infrastructure;
 

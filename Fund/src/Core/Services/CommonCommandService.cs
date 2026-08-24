@@ -1,5 +1,5 @@
 using Fund.Core.Abstractions;
-using Fund.Core.Entities;
+using Fund.Core.Ports;
 using Fund.Core.Repositories;
 
 namespace Fund.Core.Services;
@@ -32,32 +32,5 @@ internal sealed class CommonCommandService<TFundEntity> : CommandServiceBase<TFu
         CancellationToken ct)
     {
         return _repository.DeleteAsync(id, ct);
-    }
-}
-
-
-internal sealed class OwnerCommandService : CommandServiceBase<Owner>
-{
-    private readonly IRepository<Owner> _repository;
-
-    public OwnerCommandService(IUnitOfWork unitOfWork, IRepository<Owner> repository) : base(unitOfWork)
-    {
-        _repository = repository;
-    }
-
-    protected override Task AddInternalAsync(Owner entity, CancellationToken ct)
-    {
-        Console.WriteLine("naaaanananannannannana");
-        return Task.CompletedTask;
-    }
-
-    protected override Task DeleteInternalAsync(string id, CancellationToken ct)
-    {
-        throw new NotImplementedException();
-    }
-
-    protected override Task UpdateInternalAsync(Owner entity, CancellationToken ct)
-    {
-        throw new NotImplementedException();
     }
 }

@@ -1,33 +1,34 @@
 using Fund.Core.Api;
+using Fund.Core.Ports;
 
 namespace Fund.Core.Abstractions;
 
-internal abstract class CommandServiceBase<TFundEntity>(
-    IUnitOfWork unitOfWork) : ICommandService<TFundEntity> where TFundEntity : IFundEntity
+internal abstract class CommandServiceBase<TFundEntity>(IUnitOfWork unitOfWork) : ICommandService<TFundEntity>
+where TFundEntity : IFundEntity
 {
-    public Task AddAsync(
+    public async Task AddAsync(
         TFundEntity entity,
         CancellationToken ct = default)
     {
-        return unitOfWork.ExecuteAsync(
+        await unitOfWork.ExecuteAsync(
             ct => AddInternalAsync(entity, ct),
             ct);
     }
 
-    public Task UpdateAsync(
+    public async Task UpdateAsync(
         TFundEntity entity,
         CancellationToken ct = default)
     {
-        return unitOfWork.ExecuteAsync(
+        await unitOfWork.ExecuteAsync(
             ct => UpdateInternalAsync(entity, ct),
             ct);
     }
 
-    public Task DeleteAsync(
+    public async Task DeleteAsync(
         string id,
         CancellationToken ct = default)
     {
-        return unitOfWork.ExecuteAsync(
+        await unitOfWork.ExecuteAsync(
             ct => DeleteInternalAsync(id, ct),
             ct);
     }

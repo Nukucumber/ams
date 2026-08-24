@@ -16,9 +16,6 @@ public sealed class SqlGenerator : IIncrementalGenerator
     private const string FundEntityMetadataName =
         "Fund.Core.Abstractions.IFundEntity";
 
-    private const string RepositoryMetadataName =
-        "Fund.Core.Repositories.IRepository";
-
     public void Initialize(
         IncrementalGeneratorInitializationContext context)
     {
@@ -27,7 +24,7 @@ public sealed class SqlGenerator : IIncrementalGenerator
                 .Select(static (compilation, _) =>
                     GetEntities(compilation));
 
-        // Генерация конкретного репозитория
+
         context.RegisterSourceOutput(
             entities,
             static (context, entities) =>
@@ -38,7 +35,7 @@ public sealed class SqlGenerator : IIncrementalGenerator
                 }
             });
 
-        // Генерация регистрации найденного репозитория в DI
+
         context.RegisterSourceOutput(
             entities,
             static (context, entities) =>

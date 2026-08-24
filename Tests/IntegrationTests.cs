@@ -4,6 +4,7 @@ using Fund.Core.Entities;
 using Fund.Infrastructure;
 using IntegrationModule;
 using IntegrationModule.Sqlite;
+using IntegrationModule.TgBot;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Cucumber.Tests;
@@ -14,20 +15,23 @@ public class IntegrationTests
     public async Task EquipmentServiceTests()
     {
         var dbPath = Path.Combine(
-                Directory.GetCurrentDirectory(),
                 "app.db");
+
+        Console.WriteLine(dbPath);
 
         var services = new ServiceCollection();
 
         services.AddFundCore().AddInfrastructure();
 
-        services.GetIntegrationBuilder().AddSqlite(opt =>
+        services.GetIntegrationBuilder()
+        .AddSqlite(opt =>
         {
 
             var connectionString = $"Data Source={dbPath}";
 
             opt.ConnectionString = connectionString;
-        });
+        })
+        .AddTgBot();
 
         using (var sp = services.BuildServiceProvider())
         {
@@ -39,6 +43,7 @@ public class IntegrationTests
                 var equipmentService = sp.GetRequiredService<ICommandService<Equipment>>();
                 var productService = sp.GetRequiredService<ICommandService<Product>>();
                 var ownerService = sp.GetRequiredService<ICommandService<Owner>>();
+                var assetService = sp.GetRequiredService<ICommandService<Asset>>();
 
                 await equipmentService.AddAsync(new Equipment
                 {
@@ -49,6 +54,13 @@ public class IntegrationTests
                     Status = "equip",
                     Description = "equip",
                     ConfigurationUnitId = "equip"
+                });
+
+                await assetService.AddAsync(new Asset
+                {
+                    Name = "asset",
+                    Description = "beb",
+                    OwnerId = "bob"
                 });
 
                 await productService.AddAsync(new Product
@@ -71,7 +83,7 @@ public class IntegrationTests
             }
             finally
             {
-                File.Delete(dbPath);
+                // File.Delete(dbPath);
             }
         }
     }

@@ -1,4 +1,4 @@
-namespace Fund.Core.Abstractions;
+namespace Fund.Core.Ports;
 
 public interface IUnitOfWork
 {
