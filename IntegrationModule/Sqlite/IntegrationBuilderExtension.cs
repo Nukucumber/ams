@@ -1,4 +1,4 @@
-using Fund.Infrastructure;
+using Fund.Infrastructure.Abstractions;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 

@@ -14,7 +14,7 @@ internal static class DdlEmitter
         sb.AppendLine();
         sb.AppendLine($"using {entity.Namespace};");
         sb.AppendLine();
-        sb.AppendLine($"public static class {entity.Name}Extension");
+        sb.AppendLine($"internal static class {entity.Name}Extension");
         sb.AppendLine("{");
         sb.AppendLine($"    extension({entity.Name})");
         sb.AppendLine("    {");

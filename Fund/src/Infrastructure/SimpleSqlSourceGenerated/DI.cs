@@ -3,7 +3,7 @@ using Microsoft.Extensions.DependencyInjection;
 namespace Fund.Infrastructure.SimpleSqlSourceGenerated;
 
 
-public static class SimpleSqlSourceGeneratedDI
+internal static class SimpleSqlSourceGeneratedDI
 {
     public static IServiceCollection AddSimpleSqlSourceGenerated(this IServiceCollection services)
     {

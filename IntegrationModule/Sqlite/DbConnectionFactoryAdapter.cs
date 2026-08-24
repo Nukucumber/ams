@@ -1,5 +1,5 @@
 using System.Data.Common;
-using Fund.Infrastructure;
+using Fund.Infrastructure.Abstractions;
 
 
 namespace IntegrationModule.Sqlite;

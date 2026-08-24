@@ -1,11 +1,10 @@
 using System.Data.Common;
 
 using System.Runtime.CompilerServices;
-
 using Fund.Core.Abstractions;
 using Fund.Core.Repositories;
 
-namespace Fund.Infrastructure;
+namespace Fund.Infrastructure.Abstractions;
 
 internal abstract class RepositoryBase<T>(
     FundDbContext context)

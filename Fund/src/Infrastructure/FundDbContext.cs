@@ -1,6 +1,8 @@
 using System.Data.Common;
+using Fund.Infrastructure.Abstractions;
 
 namespace Fund.Infrastructure;
+
 
 internal sealed class FundDbContext(
     IDbConnectionFactory factory)
@@ -8,8 +10,7 @@ internal sealed class FundDbContext(
 {
     private DbConnection? _connection;
 
-    public DbConnection Connection =>
-        _connection
+    public DbConnection Connection => _connection
         ?? throw new InvalidOperationException(
             "Database connection is not open.");
 

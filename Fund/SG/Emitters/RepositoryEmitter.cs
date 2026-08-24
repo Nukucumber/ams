@@ -17,7 +17,7 @@ internal static class RepositoryEmitter
 
         sb.AppendLine("using System;");
         sb.AppendLine("using System.Data.Common;");
-        sb.AppendLine("using Fund.Infrastructure;");
+        sb.AppendLine("using Fund.Infrastructure.Abstractions;");
         sb.AppendLine();
 
         sb.AppendLine(

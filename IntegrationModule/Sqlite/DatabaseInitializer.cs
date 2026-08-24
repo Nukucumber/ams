@@ -1,4 +1,4 @@
-using Fund.Infrastructure;
+using Fund.Infrastructure.Abstractions;
 using Fund.Infrastructure.SimpleSqlSourceGenerated;
 
 

@@ -28,7 +28,7 @@ internal static class DependencyInjectionEmitter
         sb.AppendLine();
 
         sb.AppendLine(
-            "public static class RepositoryDependencyInjection");
+            "internal static class RepositoryDependencyInjection");
 
         sb.AppendLine("{");
 

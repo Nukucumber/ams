@@ -1,6 +1,6 @@
 using System.Data.Common;
 
-namespace Fund.Infrastructure;
+namespace Fund.Infrastructure.Abstractions;
 
 public interface IDbConnectionFactory
 {

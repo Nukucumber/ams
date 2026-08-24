@@ -2,13 +2,9 @@ using Fund.Core.Abstractions;
 
 namespace Fund.Core.Entities;
 
-public sealed class User : IFundEntity
+public sealed class Product : IFundEntity
 {
-    public required string Id { get; init; }
-
+    public string Id { get; init; } = Guid.NewGuid().ToString("N");
     public required string Name { get; set; }
-
-    public required string TypeId { get; init; }
-
     public string? Description { get; set; }
 }
