@@ -5,7 +5,7 @@ namespace Cucumber.Tests.Fixtures;
 
 public sealed class AppFixture : IAsyncLifetime
 {
-    public IServiceProvider ServiceProvider { get; private set; } = null!;
+    public ServiceProvider ServiceProvider { get; private set; } = null!;
     private string _dbPath;
 
     public AppFixture()
@@ -23,7 +23,6 @@ public sealed class AppFixture : IAsyncLifetime
 
 
         var configuration = new ConfigurationBuilder()
-                // .SetBasePath(Directory.GetCurrentDirectory())
                 .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
                 .Build();
 
@@ -41,7 +40,7 @@ public sealed class AppFixture : IAsyncLifetime
 
     public async Task DisposeAsync()
     {
-        // await ServiceProvider.Dispose();
+        await ServiceProvider.DisposeAsync();
         Directory.Delete(Path.GetDirectoryName(_dbPath)!, true);
     }
 }
