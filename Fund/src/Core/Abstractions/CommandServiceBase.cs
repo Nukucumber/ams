@@ -4,7 +4,7 @@ using Fund.Core.Ports;
 namespace Fund.Core.Abstractions;
 
 internal abstract class CommandServiceBase<TFundEntity>(IUnitOfWork unitOfWork) : ICommandService<TFundEntity>
-where TFundEntity : IFundEntity
+where TFundEntity : FundEntityBase
 {
     public async Task AddAsync(
         TFundEntity entity,

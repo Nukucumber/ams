@@ -14,7 +14,7 @@ namespace Fund.Infrastructure.RepoGenerator;
 public sealed class SqlGenerator : IIncrementalGenerator
 {
     private const string FundEntityMetadataName =
-        "Fund.Core.Abstractions.IFundEntity";
+        "Fund.Core.Abstractions.FundEntityBase";
 
     public void Initialize(
         IncrementalGeneratorInitializationContext context)
@@ -115,15 +115,25 @@ public sealed class SqlGenerator : IIncrementalGenerator
         INamedTypeSymbol fundEntity,
         ImmutableArray<EntityModel>.Builder entities)
     {
+
         if (!type.IsAbstract &&
-            type.AllInterfaces.Any(
-                i => SymbolEqualityComparer.Default.Equals(
-                    i,
-                    fundEntity)))
+            SymbolEqualityComparer.Default.Equals(
+                type.BaseType,
+                fundEntity))
         {
             entities.Add(
                 EntityModel.Create(type));
         }
+
+        // if (!type.IsAbstract &&
+        //     type.AllInterfaces.Any(
+        //         i => SymbolEqualityComparer.Default.Equals(
+        //             i,
+        //             fundEntity)))
+        // {
+        //     entities.Add(
+        //         EntityModel.Create(type));
+        // }
 
         foreach (var nestedType in type.GetTypeMembers())
         {

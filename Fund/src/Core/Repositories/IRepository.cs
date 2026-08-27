@@ -4,7 +4,7 @@ namespace Fund.Core.Repositories;
 
 
 public interface IRepository<T>
-where T : IFundEntity
+where T : FundEntityBase
 {
     IAsyncEnumerable<T> GetAllAsync(
         CancellationToken ct = default);

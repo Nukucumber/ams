@@ -39,12 +39,9 @@ internal sealed class EntityModel
     public static EntityModel Create(
         INamedTypeSymbol symbol)
     {
-        var properties = symbol
-            .GetMembers()
-            .OfType<IPropertySymbol>()
+        var properties = GetProperties(symbol)
             .Where(static property =>
-                property.DeclaredAccessibility ==
-                    Accessibility.Public
+                property.DeclaredAccessibility == Accessibility.Public
                 && !property.IsStatic
                 && property.GetMethod is not null)
             .Select(PropertyModel.Create)
@@ -52,17 +49,28 @@ internal sealed class EntityModel
 
         return new EntityModel(
             name: symbol.Name,
-
             @namespace:
-                symbol.ContainingNamespace
-                    .ToDisplayString(),
-
+                symbol.ContainingNamespace.ToDisplayString(),
             fullyQualifiedName:
                 symbol.ToDisplayString(
-                    SymbolDisplayFormat
-                        .FullyQualifiedFormat),
+                    SymbolDisplayFormat.FullyQualifiedFormat),
+            properties: properties);
+    }
 
-            properties:
-                properties);
+
+    private static IEnumerable<IPropertySymbol> GetProperties(
+    INamedTypeSymbol symbol)
+    {
+        for (var current = symbol;
+             current is not null;
+             current = current.BaseType)
+        {
+            foreach (var property in current
+                         .GetMembers()
+                         .OfType<IPropertySymbol>())
+            {
+                yield return property;
+            }
+        }
     }
 }

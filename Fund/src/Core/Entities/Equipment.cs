@@ -4,9 +4,8 @@ using Fund.Core.Abstractions;
 namespace Fund.Core.Entities;
 
 
-public sealed class Equipment : IFundEntity
+public sealed class Equipment : FundEntityBase
 {
-    public string Id { get; init; } = Guid.NewGuid().ToString("N");
     public required string Name { get; set; }
     public required string TypeId { get; init; }
     public string? SerialNumber { get; set; }
