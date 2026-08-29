@@ -7,7 +7,7 @@ namespace Fund.Infrastructure.RepoGenerator.Emitters;
 internal static class DependencyInjectionEmitter
 {
     private const string RepositoryMetadataName =
-        "Fund.Core.Repositories.IRepository";
+        "Fund.Core.Application.Ports.IRepository";
 
     public static string Emit(
         IReadOnlyList<EntityModel> entities)

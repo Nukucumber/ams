@@ -1,15 +1,16 @@
 using System.Data.Common;
 
 using System.Runtime.CompilerServices;
-using Fund.Core.Abstractions;
-using Fund.Core.Repositories;
+using Fund.Core.Application.Exceptions;
+using Fund.Core.Application.Ports;
+using Fund.Core.Domain.Abstractions;
 
 namespace Fund.Infrastructure.Abstractions;
 
 internal abstract class RepositoryBase<T>(
-    FundDbContext context)
+    IFundDbContext context)
     : IRepository<T>
-    where T : IFundEntity
+    where T : FundEntityBase
 {
     protected abstract string TableName { get; }
 
@@ -82,7 +83,7 @@ internal abstract class RepositoryBase<T>(
             CreateInsertCommand(
                 context.Connection,
                 entity);
-                
+
         command.Transaction = context.Transaction;
 
         await command.ExecuteNonQueryAsync(ct);
@@ -99,7 +100,15 @@ internal abstract class RepositoryBase<T>(
 
         command.Transaction = context.Transaction;
 
-        await command.ExecuteNonQueryAsync(ct);
+        var affectedRows = await command.ExecuteNonQueryAsync(ct);
+
+        if (affectedRows == 0)
+        {
+            throw new EntityNotFoundException(
+                enityType: TableName,
+                id: entity.Id
+            );
+        }
     }
 
     public async Task DeleteAsync(
@@ -119,7 +128,15 @@ internal abstract class RepositoryBase<T>(
             "@id",
             id);
 
-        await command.ExecuteNonQueryAsync(ct);
+        var affectedRows = await command.ExecuteNonQueryAsync(ct);
+
+        if (affectedRows == 0)
+        {
+            throw new EntityNotFoundException(
+                enityType: TableName,
+                id: id
+            );
+        }
     }
 
     protected static void AddParameter(

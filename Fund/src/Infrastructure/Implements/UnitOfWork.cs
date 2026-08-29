@@ -1,35 +1,18 @@
-using Fund.Core.Ports;
+using Fund.Infrastructure.Abstractions;
 
 namespace Fund.Infrastructure.Implements;
 
 internal class UnitOfWork : IUnitOfWork
 {
-    private readonly FundDbContext _context;
-    private readonly EventPublisherAbstract _eventPublisher;
+    private readonly IFundDbContext _context;
 
-    public UnitOfWork(FundDbContext context, EventPublisherAbstract eventPublisher)
+    public UnitOfWork(IFundDbContext context)
     {
         _context = context;
-        _eventPublisher = eventPublisher;
     }
 
 
-    public async Task ExecuteAsync(Func<CancellationToken, Task> action, CancellationToken ct = default)
-    {
-        await _context.BeginTransactionAsync(ct);
-
-        try
-        {
-            await action(ct);
-
-            await _context.CommitAsync(ct);
-
-            await _eventPublisher.Publish(ct);
-        }
-        catch
-        {
-            await _context.RollbackAsync(ct);
-            throw;
-        }
-    }
+    public Task BeginTransactionAsync(CancellationToken ct = default) => _context.BeginTransactionAsync(ct);
+    public Task CommitAsync(CancellationToken ct = default) => _context.CommitAsync(ct);
+    public Task RollbackAsync(CancellationToken ct = default) => _context.RollbackAsync(ct);
 }

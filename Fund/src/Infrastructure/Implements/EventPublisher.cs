@@ -1,24 +1,23 @@
-using Fund.Core.Ports;
-using Fund.Core.Services;
+using Fund.Core.Application.Events;
+using Fund.Core.Application.Ports;
 
 namespace Fund.Infrastructure.Implements;
 
-internal class EventPublisher : EventPublisherAbstract
+internal class EventPublisher : IEventPublisher
 {
     private readonly IEventDispatcher _eventDispatcher;
 
-    public EventPublisher(EventCollector eventCollector, IEventDispatcher eventDispatcher) : base(eventCollector)
+    public EventPublisher(IEventDispatcher eventDispatcher) 
     {
         _eventDispatcher = eventDispatcher;
     }
 
 
-    public override async Task Publish(CancellationToken ct = default)
+    public async Task Publish(EventCollector eventCollector, CancellationToken ct = default)
     {
-        foreach (var @event in _eventCollector.Events)
+        foreach (var @event in eventCollector.Events)
         {
             await @event.DispatchAsync(_eventDispatcher, ct);
         }
-        _eventCollector.Free();
     }
 }

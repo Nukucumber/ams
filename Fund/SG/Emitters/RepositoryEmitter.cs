@@ -41,7 +41,7 @@ internal static class RepositoryEmitter
         sb.AppendLine(
             "    public " +
             entity.Name +
-            "Repository(FundDbContext context)");
+            "Repository(IFundDbContext context)");
 
         sb.AppendLine(
             "        : base(context)");

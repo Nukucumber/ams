@@ -14,7 +14,7 @@ namespace Fund.Infrastructure.RepoGenerator;
 public sealed class SqlGenerator : IIncrementalGenerator
 {
     private const string FundEntityMetadataName =
-        "Fund.Core.Abstractions.FundEntityBase";
+        "Fund.Core.Domain.Abstractions.FundEntityBase";
 
     public void Initialize(
         IncrementalGeneratorInitializationContext context)
