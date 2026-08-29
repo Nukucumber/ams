@@ -17,15 +17,14 @@ public static class Program
 
         builder.Services.AddOpenApi();
 
-        builder.Services.AddFundCore()
+        var fundInfrastructureBuilder = builder.Services.AddFundCore()
                         .AddInfrastructure();
+
         builder.Services.GetIntegrationBuilder()
                         .AddSqlite(cfg =>
                         {
 
-                        })
-                        // .AddTgBot();
-                        ;
+                        });
 
         var app = builder.Build();
         app.UseDefaultFiles();

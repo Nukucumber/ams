@@ -9,6 +9,7 @@
 
   <PropertyGroup>
     <PublishAot>true</PublishAot>
+    <EnableAotAnalyzer>true</EnableAotAnalyzer>
   </PropertyGroup>
 
   <ItemGroup>

@@ -5,10 +5,10 @@ using Microsoft.Extensions.Options;
 namespace IntegrationModule.Sqlite;
 
 public class SqliteConnectionFactory(
-    IOptionsMonitor<SqliteOption> option)
+    IOptions<SqliteOptions> option)
 {
     public DbConnection Create()
     {       
-        return new SqliteConnection(option.CurrentValue.ConnectionString);
+        return new SqliteConnection(option.Value.ConnectionString);
     }
 }
